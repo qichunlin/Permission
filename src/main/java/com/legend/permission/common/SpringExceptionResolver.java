@@ -1,5 +1,6 @@
 package com.legend.permission.common;
 
+import com.legend.permission.exception.ParamException;
 import com.legend.permission.exception.PermissionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
 
         // 这里我们要求项目中所有请求json数据，都使用.json结尾
         if (url.endsWith(".json")){
-            if (ex instanceof PermissionException){
+            if (ex instanceof PermissionException || ex instanceof ParamException){
                 JsonData result = JsonData.fail(ex.getMessage());
                 mv = new ModelAndView("jsonView",result.toMap());
             }else {
