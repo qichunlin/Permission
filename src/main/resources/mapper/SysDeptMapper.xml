@@ -138,4 +138,40 @@
       operator_ip = #{operatorIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--判断count是否大于0 如果大于0就存在了-->
+  <select id="countByNameAndParentId" resultType="int" parameterType="map">
+    select count(1) from sys_dept
+    where parent_id = #{parentId}
+    and name =#{name}
+    <if test="id !=null">
+      and id != #{id}
+    </if>
+  </select>
+
+
+  <!--获取所有部门-->
+  <select id="getAllDept" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_dept
+  </select>
+
+
+  <!--获取子部门-->
+  <select id="getChildDeptListByLevel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_dept
+    where level like #{level} || '.%'  --level like '0.%'
+  </select>
+
+  <!--批量更新-->
+  <update id="batchUpdateLevel" parameterType="map">
+    <foreach collection="sysDeptList" item="sysDept" separator=";">
+        UPDATE sys_dept
+        set level = #{dept.level}
+        where id = #{dept.id}
+    </foreach>
+  </update>
 </mapper>
