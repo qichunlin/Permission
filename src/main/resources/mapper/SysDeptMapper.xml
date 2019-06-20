@@ -142,8 +142,14 @@
   <!--判断count是否大于0 如果大于0就存在了-->
   <select id="countByNameAndParentId" resultType="int" parameterType="map">
     select count(1) from sys_dept
-    where parent_id = #{parentId}
-    and name =#{name}
+    where name =#{name}
+    <if test="parentId !=null">
+      and parent_id != #{parentId}
+    </if>
+    <!--<if test="parentId ==null">
+      /*如果等于空就给个默认值 保护sql*/
+      and parent_id == 0
+    </if>-->
     <if test="id !=null">
       and id != #{id}
     </if>

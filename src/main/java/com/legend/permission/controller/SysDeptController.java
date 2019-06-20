@@ -22,6 +22,20 @@ public class SysDeptController {
     @Autowired
     private SysTreeService sysTreeService;
 
+
+    /**
+     * 部门页面
+     * @param param
+     * @return
+     */
+    @RequestMapping("/dept.")
+    @ResponseBody
+    public JsonData dept(DeptParam param){
+        BeanValidator.check(param);
+        sysDeptService.save(param);
+        return JsonData.success();
+    }
+
     /**
      * 新增部门
      * @param param

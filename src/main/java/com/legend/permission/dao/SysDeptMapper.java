@@ -20,7 +20,7 @@ public interface SysDeptMapper {
     int updateByPrimaryKey(SysDept record);
 
     //
-    int countByNameAndParentId(@Param("parentId") int parentId,@Param("name") String name,@Param("id") Integer id);
+    int countByNameAndParentId(@Param("parentId") Integer parentId,@Param("name") String name,@Param("id") Integer id);
 
     //新增方法获取所有的部门
     List<SysDept> getAllDept();
